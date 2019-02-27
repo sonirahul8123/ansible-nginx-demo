@@ -1,0 +1,29 @@
+---
+- hosts: webserver
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Install pip
+      apt: name=python3-pip state=present
+      
+    - name: install python-docker
+      apt: name=python-docker
+
+    - name: copy dockerfile to remote host
+      copy: src=docker/Dockerfile dest=/tmp
+
+    - name: Build Docker image from Dockerfile
+      command: docker build -t nginx-web /tmp
+
+    - name: Running the container
+      docker_container:
+        name: my-site
+        image: "nginx-web"
+        ports:
+          - "80:80"
+        restart: true
+        detach: yes
+      
+    - name: Check if container is running
+      shell: docker ps
