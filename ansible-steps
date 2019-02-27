@@ -1,0 +1,13 @@
+1. generate ssh key using `ssh-keygen -t rsa`
+
+2. Enable root login on remote machine, enable password authentication, set password for root and user you wish to work for ansible.
+
+3. create .ssh directory on remote machine using `ssh <user>@ip.of.remote.machine mkdir -p .ssh`
+
+4. copy public key of user generated on ansible master to remote machine by `cat .ssh/id_rsa.pub | ssh <user>@ip.of.remote.machine "cat >> .ssh/authorized_keys"`
+
+5. In case you see "/bin/sh: 1: /usr/bin/python: not found\r\n" this error, edit `/etc/ansible/hosts` file
+```
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
+```
