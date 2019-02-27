@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+log_info() {
+  printf "\n\e[0;35m $1\e[0m\n\n"
+}
+
+log_info "Updating apt and installing dependency ..."
+  sudo apt update 
+  sudo apt install software-properties-common
+  
+log_info "Adding the ansible PPA ..."
+  sudo apt-add-repository ppa:ansible/ansible
+  
+log_info "Updating apt to fetch ansible packages ..."
+  sudo apt update
+  
+log_info "Installing Ansible ..."
+  sudo apt install ansible
