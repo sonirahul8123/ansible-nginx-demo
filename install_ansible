@@ -6,7 +6,7 @@ log_info() {
 
 log_info "Updating apt and installing dependency ..."
   sudo apt update 
-  sudo apt install software-properties-common
+  sudo apt install -y software-properties-common
   
 log_info "Adding the ansible PPA ..."
   sudo apt-add-repository ppa:ansible/ansible
@@ -15,4 +15,4 @@ log_info "Updating apt to fetch ansible packages ..."
   sudo apt update
   
 log_info "Installing Ansible ..."
-  sudo apt install ansible
+  sudo apt install -y ansible
