@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+log_info() {
+  printf "\n\e[0;35m $1\e[0m\n\n"
+}
+
+log_info "Updating apt and installing dependency ..."
+  sudo apt update 
+  sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
+  
+log_info "Adding the GPG key for the official Docker repository ..."
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  
+log_info "Adding the docker repository to APT sources ..."
+  sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  
+log_info "Updating the package database with the docker packages from the newly added repo ..."
+  sudo apt update
+  
+log_info "Installing Docker ..."  
+  sudo apt install -y docker-ce
+
+log_info "Starting docker daemon ..."
+  sudo systemctl start docker
